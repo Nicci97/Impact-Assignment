@@ -12,10 +12,7 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
     public static void main(String[] args) {
         NumberRangeSummarizer summarizer = new NumberRangeSummarizer();
         // assume integer input
-//        String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
-        // add test case for String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
-        // negative numbers?
         // empty
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         String summarizedCollection = summarizer.summarizeCollection(collection);
@@ -35,9 +32,11 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
         List<Integer> list = new ArrayList<>();
 
         // add array items to list
-        for (String element: splitUpInputString)
-            list.add(Integer.parseInt(element));
-
+        for (String element: splitUpInputString) {
+            if (!element.equals("")) {
+                list.add(Integer.parseInt(element));
+            }
+        }
         // sort the list of integers into ascending order
         Collections.sort(list);
 
