@@ -25,7 +25,7 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
     }
 
     /**
-     * @param input: A String containing integers where a comma is placed between each neighbouring integer, for example: "1,3,6,7,8,12,13,14,15,21,22,23,24,31"
+     * @param input: A String containing a comma delimited list of integers. Eg: "1,3,6,7,8,12,13,14,15,21,22,23,24,31"
      * @return: An ascending-order sorted List (Collection) of the Integer values contained in the input String
      */
     public Collection<Integer> collect(String input) {
@@ -79,10 +79,27 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
             if (arrayInput[i] == currentStepInRange + 1) {
                 // if a part of a range
                 currentStepInRange += 1;
-                if (i+1 < arrayInput.length  && arrayInput[i+1] > currentStepInRange+1) {
+                int indexNextUniqueVal = 0;
+                while (arrayInput[i+indexNextUniqueVal] == currentStepInRange && indexNextUniqueVal+i+1 < arrayInput.length) {
+                    indexNextUniqueVal++;
+                }
+
+                if (arrayInput[i+indexNextUniqueVal] > currentStepInRange+1) {
+                    // if next different element is not part of current range
                     summarizedCollectionString += "-" + currentStepInRange;
-                } else if (i+1 == arrayInput.length) {
-                    summarizedCollectionString += "-" + currentStepInRange;
+                } else if (arrayInput[i+indexNextUniqueVal] == currentStepInRange+1) {
+                    int finalIndexForNextValueInSequence = i+indexNextUniqueVal;
+                    while (finalIndexForNextValueInSequence < arrayInput.length-1) {
+                        if (arrayInput[finalIndexForNextValueInSequence+1] == currentStepInRange+1) {
+                            finalIndexForNextValueInSequence++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (finalIndexForNextValueInSequence == arrayInput.length-1) {
+                        // if next different element is part of current range and is the last element
+                        summarizedCollectionString += "-" + (currentStepInRange+1);
+                    }
                 }
             } else {
                 // if not a part of a range

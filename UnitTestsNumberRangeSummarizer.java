@@ -37,7 +37,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test1() {
         String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         Integer[] expectedElements = {1,3,6,7,8,12,13,14,15,21,22,23,24,31};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -57,7 +56,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test2() {
         String input = ",,,1,3,6,7,8,,,12,,13,14,15,21,22,23,24,31,,,";
         Integer[] expectedElements = {1,3,6,7,8,12,13,14,15,21,22,23,24,31};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -77,7 +75,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test3() {
         String input = "1,22,6,7,31,12,13,14,15,21,3,23,24,8";
         Integer[] expectedElements = {1,3,6,7,8,12,13,14,15,21,22,23,24,31};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -97,7 +94,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test4() {
         String input = "-3,21,31,22,15,8,-14,-1,-12,6,23,24,7,-13";
         Integer[] expectedElements = {-14,-13,-12,-3,-1,6,7,8,15,21,22,23,24,31};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -116,7 +112,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test5() {
         String input = "";
         Integer[] expectedElements = {};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -135,7 +130,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test6() {
         String input = ",,,";
         Integer[] expectedElements = {};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
@@ -154,7 +148,6 @@ public class UnitTestsNumberRangeSummarizer {
     private static void test7() {
         String input = "1,3,3,3,6,7,8,12,13,14,15,21,21,22,23,24,31";
         Integer[] expectedElements = {1,3,3,3,6,7,8,12,13,14,15,21,21,22,23,24,31};
-        summarizer.collect(input);
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i) != expectedElements[i]) {
