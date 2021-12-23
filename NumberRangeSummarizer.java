@@ -1,26 +1,27 @@
 package numberrangesummarizer;
 
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A class that takes as command line input a String containing a comma separated list of integer numbers and prints out a string
+ * containing a comma delimited list of numbers, grouping the numbers into a range when they are sequential
+ */
 public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
     public static void main(String[] args) {
+        // initialise NumberRangeSummarizer
         NumberRangeSummarizer summarizer = new NumberRangeSummarizer();
-        // assume integer input
-        String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
-        // empty
-        List<Integer> collection = (List<Integer>) summarizer.collect(input);
+
+        // create collection from command line input (args[0])
+        List<Integer> collection = (List<Integer>) summarizer.collect(args[0]);
         String summarizedCollection = summarizer.summarizeCollection(collection);
 
-
-        System.out.println("Printing summarized collection");
-        System.out.println(summarizedCollection);
-
+        // print out result of computation
+        System.out.println("Input String: " + args[0]);
+        System.out.println("Summarised Collection: " + summarizedCollection);
     }
 
     /**
@@ -28,19 +29,26 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
      * @return: An ascending-order sorted List (Collection) of the Integer values contained in the input String
      */
     public Collection<Integer> collect(String input) {
-        String[] splitUpInputString = input.split(",");
-        List<Integer> list = new ArrayList<>();
+        try {
+            String[] splitUpInputString = input.split(",");
+            List<Integer> list = new ArrayList<>();
 
-        // add array items to list
-        for (String element: splitUpInputString) {
-            if (!element.equals("")) {
-                list.add(Integer.parseInt(element));
+            // add array items to list
+            for (String element: splitUpInputString) {
+                if (!element.equals("")) {
+                    list.add(Integer.parseInt(element));
+                }
             }
-        }
-        // sort the list of integers into ascending order
-        Collections.sort(list);
+            // sort the list of integers into ascending order
+            Collections.sort(list);
+            return list;
 
-        return list;
+        } catch (NumberFormatException e) {
+            System.out.println("The provided input string contains invalid characters," +
+                    " please ensure the input file contains only the characters corresponding to numbers 0-9 and the comma character ','.");
+            System.exit(0);
+            return null;
+        }
     }
 
 

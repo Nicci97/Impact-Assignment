@@ -17,6 +17,7 @@ public class UnitTestsNumberRangeSummarizer {
         test5(); // empty input string
         test6(); // only comma containing input string
         test7(); // duplicate value input string
+
         /** Test Cases 8-11 are for the summarizeCollection method*/
         test8(); // test base case ascending order input
         test9(); //  negative value input
