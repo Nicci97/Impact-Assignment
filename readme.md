@@ -2,8 +2,8 @@
 - The input string contains only integer numbers (The user will be notified if unsupported characters are present)
 - The input string contains only the characters 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9 as well as the comma "," character
 - The summarizeCollection method assumes ascending order sorted input, but collect method does not
-- For NumberRangeSummarizer.java, duplicate values in the input are ignored by the summarizeCollection method
-- For NumberRangeSummarizerAlternative.java, duplicate values in the input are ignored by the collect method
+- For NumberRangeSummarizer.java: duplicate values in the input are ignored by the summarizeCollection method
+- For NumberRangeSummarizerAlternative.java: duplicate values in the input are ignored by the collect method
 
 ### NumberRangeSummarizer.java
 This implementation uses the 'collect' method to return a duplicate-value containing sorted (ascending) collection of integers. 
