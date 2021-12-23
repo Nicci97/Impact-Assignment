@@ -1,5 +1,7 @@
 package numberrangesummarizer;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class UnitTestsNumberRangeSummarizer {
@@ -15,8 +17,11 @@ public class UnitTestsNumberRangeSummarizer {
         test5(); // empty input string
         test6(); // only comma containing input string
         test7(); // duplicate value input string
-
-
+        /** Test Cases 8-11 are for the summarizeCollection method*/
+        test8(); // test base case ascending order input
+        test9(); //  negative value input
+        test10(); // empty input
+        test11(); // duplicate value input
     }
 
     /**
@@ -146,6 +151,73 @@ public class UnitTestsNumberRangeSummarizer {
             }
         }
         System.out.println("Test 7 PASSED");
+    }
+
+    /**
+     * Test the summarizeCollection method
+     * Test the provided input example, an ascending ordered input list with ranges and stand-alone values
+     */
+    public static void test8() {
+        List<Integer> list = Arrays.asList(1,3,6,7,8,12,13,14,15,21,22,23,24,31);
+        Collection<Integer> collection = list;
+
+        String summarisedString = summarizer.summarizeCollection(collection);
+        if (summarisedString.equals("1, 3, 6-8, 12-15, 21-24, 31")) {
+            System.out.println("Test 8 PASSED");
+        } else {
+            System.out.println("Test 8 FAILED");
+        }
+    }
+
+
+
+    /**
+     * Test the summarizeCollection method
+     * Test negative value input
+     */
+    public static void test9() {
+        List<Integer> list = Arrays.asList(-14,-13,-12,-3,-1,6,7,8,15,21,22,23,24,31);
+        Collection<Integer> collection = list;
+
+        String summarisedString = summarizer.summarizeCollection(collection);
+        if (summarisedString.equals("-14--12, -3, -1, 6-8, 15, 21-24, 31")) {
+            System.out.println("Test 9 PASSED");
+        } else {
+            System.out.println("Test 9 FAILED");
+        }
+    }
+
+    /**
+     * Test the summarizeCollection method
+     * Test empty input
+     */
+    public static void test10() {
+        List<Integer> list = Arrays.asList();
+        Collection<Integer> collection = list;
+
+        String summarisedString = summarizer.summarizeCollection(collection);
+        if (summarisedString.equals("")) {
+            System.out.println("Test 10 PASSED");
+        } else {
+            System.out.println("Test 10 FAILED");
+        }
+    }
+
+    /**
+     * Test the summarizeCollection method
+     * Duplicate value input
+     */
+    public static void test11() {
+        List<Integer> list = Arrays.asList(1,3,3,3,6,7,8,12,13,14,15,21,21,22,23,24,31);
+        Collection<Integer> collection = list;
+
+        String summarisedString = summarizer.summarizeCollection(collection);
+        if (summarisedString.equals("1, 3, 6-8, 12-15, 21-24, 31")) {
+            System.out.println("Test 11 PASSED");
+        } else {
+            System.out.println("Test 11 FAILED");
+        }
+
     }
 
 }

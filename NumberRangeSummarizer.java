@@ -63,6 +63,11 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
         int currentStepInRange = startOfRange;
         String summarizedCollectionString = startOfRange + "";
         for (int i = 1; i < arrayInput.length; i++) {
+            // ignore duplicate values
+            if (arrayInput[i] == currentStepInRange) {
+                continue;
+            }
+
             if (arrayInput[i] == currentStepInRange + 1) {
                 // if a part of a range
                 currentStepInRange += 1;
