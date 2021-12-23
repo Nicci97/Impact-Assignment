@@ -79,7 +79,9 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
             if (arrayInput[i] == currentStepInRange + 1) {
                 // if a part of a range
                 currentStepInRange += 1;
-                if (arrayInput[i+1] != null && arrayInput[i+1] > currentStepInRange+1) {
+                if (i+1 < arrayInput.length  && arrayInput[i+1] > currentStepInRange+1) {
+                    summarizedCollectionString += "-" + currentStepInRange;
+                } else if (i+1 == arrayInput.length) {
                     summarizedCollectionString += "-" + currentStepInRange;
                 }
             } else {
