@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * A class that takes as command line input a String containing a comma separated list of integer numbers and prints out a string
  * containing a comma delimited list of numbers, grouping the numbers into a range when they are sequential
+ * Note: This implementation handles duplicate input values in the summarizeCollection method
  */
 public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
@@ -39,6 +40,7 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
                     list.add(Integer.parseInt(element));
                 }
             }
+
             // sort the list of integers into ascending order
             Collections.sort(list);
             return list;
