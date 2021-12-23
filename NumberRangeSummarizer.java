@@ -28,7 +28,7 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
     /**
      * @param input: A String containing integers where a comma is placed between each neighbouring integer, for example: "1,3,6,7,8,12,13,14,15,21,22,23,24,31"
-     * @return An ascending-order sorted List (Collection) of the Integer values contained in the input String
+     * @return: An ascending-order sorted List (Collection) of the Integer values contained in the input String
      */
     public Collection<Integer> collect(String input) {
         String[] splitUpInputString = input.split(",");
@@ -45,6 +45,10 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
     }
 
 
+    /**
+     * @param input: A Collection of Integers, assumed to be in ascending sorted order
+     * @return: A string containing a comma delimited list of numbers, grouping the numbers into a range when they are sequential
+     */
     public String summarizeCollection(Collection<Integer> input) {
         // return empty string if no integers in input string
         if (input.size() == 0) {
