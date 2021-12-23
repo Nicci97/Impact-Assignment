@@ -1,32 +1,46 @@
 package numberrangesummarizer;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
-/**
- * @author Werner
- *
- * Implement this Interface to produce a comma delimited list of numbers,
- * grouping the numbers into a range when they are sequential.
- *
- *
- * Sample Input: "1,3,6,7,8,12,13,14,15,21,22,23,24,31
- * Result: "1, 3, 6-8, 12-15, 21-24, 31"
- *
- * The code will be evaluated on
- *   - functionality
- *   - style
- *   - robustness
- *   - best practices
- *   - unit tests
- */
-public interface NumberRangeSummarizer {
+public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
-    //collect the input
-    Collection<Integer> collect(String input);
+    public static void main(String[] args) {
+        NumberRangeSummarizer summarizer = new NumberRangeSummarizer();
+//        String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
+        String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
+        // add test case for String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
+        List<Integer> collection = (List<Integer>) summarizer.collect(input);
 
-    //get the summarized string
-    String summarizeCollection(Collection<Integer> input);
+        for (Integer x: collection) {
+            System.out.println(x);
+        }
 
+    }
+
+    /**
+     * @param input: A String containing integers where a comma is placed between each neighbouring integer, for example: "1,3,6,7,8,12,13,14,15,21,22,23,24,31"
+     * @return An ascending-order sorted List (Collection) of the Integer values contained in the input String
+     */
+    public Collection<Integer> collect(String input) {
+        String[] splitUpInputString = input.split(",");
+        List<Integer> list = new ArrayList<>();
+
+        // add array items to list
+        for (String element: splitUpInputString)
+            list.add(Integer.parseInt(element));
+
+        // sort the list of integers into ascending order
+        Collections.sort(list);
+
+        return list;
+    }
+
+
+    public String summarizeCollection(Collection<Integer> input) {
+        return null;
+    }
 }
-
-
