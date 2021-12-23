@@ -1,19 +1,16 @@
 package numberrangesummarizer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A class that takes as command line input a String containing a comma separated list of integer numbers and prints out a string
  * containing a comma delimited list of numbers, grouping the numbers into a range when they are sequential
  */
-public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
+public class NumberRangeSummarizerAlternative implements NumberRangeSummarizerInterface {
 
     public static void main(String[] args) {
         // initialise NumberRangeSummarizer
-        NumberRangeSummarizer summarizer = new NumberRangeSummarizer();
+        NumberRangeSummarizerAlternative summarizer = new NumberRangeSummarizerAlternative();
 
         // create collection from command line input (args[0])
         List<Integer> collection = (List<Integer>) summarizer.collect(args[0]);
@@ -27,20 +24,23 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
     /**
      * @param input: A String containing a comma delimited list of integers. Eg: "1,3,6,7,8,12,13,14,15,21,22,23,24,31"
      * @return: An ascending-order sorted List (Collection) of the Integer values contained in the input String
+     * where the returned list represents duplicate values in the input string only once in the output list.
      */
     public Collection<Integer> collect(String input) {
         try {
             String[] splitUpInputString = input.split(",");
             List<Integer> list = new ArrayList<>();
 
-            // add array items to list
+            // add array items to list (ensuring no duplicates)
             for (String element: splitUpInputString) {
-                if (!element.equals("")) {
+                if (!element.equals("") && !list.contains(element)) {
                     list.add(Integer.parseInt(element));
                 }
             }
+
             // sort the list of integers into ascending order
             Collections.sort(list);
+
             return list;
 
         } catch (NumberFormatException e) {
@@ -69,45 +69,30 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
         Integer[] arrayInput = new Integer[input.size()];
         input.toArray(arrayInput);
 
-        // populate summarized string with integers and ranges
-        int startOfRange = arrayInput[0];
-        int currentStepInRange = startOfRange;
-        String summarizedCollectionString = startOfRange + "";
+        int prevValue = arrayInput[0];
+        int rangeStartIndex = 0;
+        String summarizedCollectionString = prevValue + "";
         for (int i = 1; i < arrayInput.length; i++) {
-            // ignore duplicate values
-            if (arrayInput[i] == currentStepInRange) {
-                continue;
-            }
-
-            if (arrayInput[i] == currentStepInRange + 1) {
-                // if a part of a range
-                currentStepInRange += 1;
-                int indexNextUniqueVal = 0;
-                while (arrayInput[i+indexNextUniqueVal] == currentStepInRange && indexNextUniqueVal+i+1 < arrayInput.length) {
-                    indexNextUniqueVal++;
+            if (arrayInput[i] == prevValue+1) {
+                if (i == arrayInput.length-1) {
+                    // if is last in range
+                    summarizedCollectionString += "-" + arrayInput[i];
                 }
-
-                if (arrayInput[i+indexNextUniqueVal] > currentStepInRange+1) {
-                    // if next different element is not part of current range
-                    summarizedCollectionString += "-" + currentStepInRange;
-                } else if (arrayInput[i+indexNextUniqueVal] == currentStepInRange) {
-                    // if next different element is part of current range and is the last element
-                    int finalIndexForNextValueInSequence = i+indexNextUniqueVal;
-                    while (finalIndexForNextValueInSequence < arrayInput.length-1) {
-                        if (arrayInput[finalIndexForNextValueInSequence+1] == currentStepInRange) {
-                            finalIndexForNextValueInSequence++;
-                        } else {
-                            break;
-                        }
-                    }
-                    if (finalIndexForNextValueInSequence == arrayInput.length-1) {
-                        summarizedCollectionString += "-" + (currentStepInRange);
-                    }
+                // if current value is in the range of the previous value
+                prevValue++;
+            } else if (arrayInput[i] > prevValue+1) {
+                // if current value is not in the range of the previous value
+                if (rangeStartIndex == i-1) {
+                    // if previous range had just 1 element
+                    summarizedCollectionString += ", " + arrayInput[i];
+                    prevValue = arrayInput[i];
+                    rangeStartIndex = i;
+                } else {
+                    // if previous range had more than 1 element
+                    summarizedCollectionString += "-" + prevValue + ", " + arrayInput[i];
+                    prevValue = arrayInput[i];
+                    rangeStartIndex = i;
                 }
-            } else {
-                // if not a part of a range
-                summarizedCollectionString += ", " + arrayInput[i];
-                currentStepInRange = arrayInput[i];
             }
         }
 
