@@ -60,6 +60,8 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
     /**
      * @param input: A Collection of Integers, assumed to be in ascending sorted order
      * @return: A string containing a comma delimited list of numbers, grouping the numbers into a range when they are sequential
+     * Duplicate values in the input are ignored by the summarizeCollection method, i.e. any duplicates are regarded as only one instance of the value
+     *
      */
     public String summarizeCollection(Collection<Integer> input) {
         // return empty string if no integers in input string
