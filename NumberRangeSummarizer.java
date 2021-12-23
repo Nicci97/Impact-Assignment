@@ -1,6 +1,7 @@
 package numberrangesummarizer;
 
 import java.sql.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,14 +11,18 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
     public static void main(String[] args) {
         NumberRangeSummarizer summarizer = new NumberRangeSummarizer();
+        // assume integer input
 //        String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
         // add test case for String input = "1,3,6,7,31,12,13,14,15,21,22,23,24,8,";
+        // negative numbers?
+        // empty
         List<Integer> collection = (List<Integer>) summarizer.collect(input);
+        String summarizedCollection = summarizer.summarizeCollection(collection);
 
-        for (Integer x: collection) {
-            System.out.println(x);
-        }
+
+        System.out.println("Printing summarized collection");
+        System.out.println(summarizedCollection);
 
     }
 
@@ -41,6 +46,33 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface {
 
 
     public String summarizeCollection(Collection<Integer> input) {
-        return null;
+        // return empty string if no integers in input string
+        if (input.size() == 0) {
+            return "";
+        }
+
+        //convert list to array
+        Integer[] arrayInput = new Integer[input.size()];
+        input.toArray(arrayInput);
+
+        // populate summarized string with integers and ranges
+        int startOfRange = arrayInput[0];
+        int currentStepInRange = startOfRange;
+        String summarizedCollectionString = startOfRange + "";
+        for (int i = 1; i < arrayInput.length; i++) {
+            if (arrayInput[i] == currentStepInRange + 1) {
+                // if a part of a range
+                currentStepInRange += 1;
+                if (arrayInput[i+1] != null && arrayInput[i+1] > currentStepInRange+1) {
+                    summarizedCollectionString += "-" + currentStepInRange;
+                }
+            } else {
+                // if not a part of a range
+                summarizedCollectionString += ", " + arrayInput[i];
+                currentStepInRange = arrayInput[i];
+            }
+        }
+
+        return summarizedCollectionString;
     }
 }
